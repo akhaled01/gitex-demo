@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Color definitions for better readability
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+# Check if the script received any arguments
+if [ $# -eq 0 ]; then
+    echo -e "${RED}Error: No argument provided.${NC}"
+    echo -e "${YELLOW}Usage: ./run [bonfire|monitor|void]${NC}"
+    exit 1
+fi
+
+# Run the appropriate script based on the argument provided
+case $1 in
+    bonfire)
+        echo -e "${BLUE}Running Bonfire script...${NC}"
+        ./scripts/run-bonfire.sh
+        if [ $? -eq 0 ]; then
+            echo -e "${GREEN}Bonfire script ran successfully!${NC}"
+        else
+            echo -e "${RED}Bonfire script failed to run.${NC}"
+        fi
+        ;;
+    monitor)
+        echo -e "${BLUE}Running System Monitor script...${NC}"
+        ./scripts/run-sys-monitor.sh
+        if [ $? -eq 0 ]; then
+            echo -e "${GREEN}System Monitor script ran successfully!${NC}"
+        else
+            echo -e "${RED}System Monitor script failed to run.${NC}"
+        fi
+        ;;
+    void)
+        echo -e "${BLUE}Running Void.js script...${NC}"
+        ./scripts/run-void-js.sh
+        if [ $? -eq 0 ]; then
+            echo -e "${GREEN}Void.js script ran successfully!${NC}"
+        else
+            echo -e "${RED}Void.js script failed to run.${NC}"
+        fi
+        ;;
+    *)
+        echo -e "${RED}Error: Invalid argument '$1'.${NC}"
+        echo -e "${YELLOW}Valid options are: bonfire, monitor, void.${NC}"
+        exit 1
+        ;;
+esac

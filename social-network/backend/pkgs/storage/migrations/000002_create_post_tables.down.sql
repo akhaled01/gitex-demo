@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS post;
+
+DROP TABLE IF EXISTS post_like;
+
+DROP TABLE IF EXISTS post_view;

@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ES6", // Compile to ES6
+    "jsx": "preserve",
+    "jsxFactory": "createElement", // Specify the custom pragma
+    "module": "ESNext", // Use ESNext modules
+    "moduleResolution": "node", // Module resolution strategy
+    "outDir": "./dist", // Output directory
+    "rootDir": "./", // Root directory of input files
+    "strict": false, // Enable all strict type-checking options
+    "esModuleInterop": true, // Enable compatibility with CommonJS modules
+    "skipLibCheck": true, // Skip type checking of declaration files
+    "baseUrl": "./src",
+    "paths": {
+      "Core/*": [
+        "../core/*"
+      ],
+      "CSS/*": [
+        "../css/*"
+      ],
+      "Assets/*": [
+        "../assets/*"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*",
+    "core/**/*",
+    "*.d.ts",
+    "eslint.config.mjs"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ] // Exclude node_modules and dist
+}

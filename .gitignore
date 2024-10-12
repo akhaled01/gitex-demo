@@ -1,0 +1,4 @@
+void-js-app/node_modules
+social-network/frontend/node_modules
+social-network/frontend/.env
+.vscode/

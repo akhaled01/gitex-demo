@@ -32,6 +32,38 @@ print_success "Installing g++, make, and libsdl2-dev..."
 apt-get update
 apt-get install -y g++ make libsdl2-dev
 
+# Step 2: Install node.js and npm
+NODE_VERSION_REQUIRED="v20.18.0"
+if command -v node &>/dev/null; then
+  NODE_VERSION_INSTALLED=$(node -v)
+  if [ "$NODE_VERSION_INSTALLED" != "$NODE_VERSION_REQUIRED" ]; then
+    print_warning "Node.js version is outdated ($NODE_VERSION_INSTALLED). Installing the required version ($NODE_VERSION_REQUIRED)..."
+    INSTALL_NODE="yes"
+  else
+    print_success "Node.js is already installed and up to date ($NODE_VERSION_INSTALLED)."
+    INSTALL_NODE="no"
+  fi
+else
+  print_warning "Node.js is not installed. Installing Node.js version $NODE_VERSION_REQUIRED..."
+  INSTALL_NODE="yes"
+fi
+
+# Install Node.js using NVM if needed
+if [ "$INSTALL_NODE" == "yes" ]; then
+  # Install nvm (Node Version Manager)
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+  source ~/.nvm/nvm.sh  # Load nvm into the shell session
+  
+  # Install the required Node.js version
+  nvm install 20
+  
+  # Verify the correct Node.js and npm versions
+  if [ "$(node -v)" != "$NODE_VERSION_REQUIRED" ]; then
+    print_error "Failed to install Node.js version $NODE_VERSION_REQUIRED."
+  fi
+  print_success "Node.js $(node -v) and npm $(npm -v) installed successfully."
+fi
+
 # Step 2: Install node_modules inside 'social-network' folder
 if [ -d "social-network/frontend" ]; then
   print_success "Installing node_modules inside 'social-network' folder..."

@@ -32,8 +32,10 @@ print_success "Installing g++, make, curl, and libsdl2-dev..."
 apt-get update
 apt-get install -y g++ make libsdl2-dev curl
 
-# Step 2: Install node.js and npm
+# Step 2: Check if Node.js is installed and up to date
 NODE_VERSION_REQUIRED="v20.18.0"
+NVM_LOADED="no"
+
 if command -v node &>/dev/null; then
   NODE_VERSION_INSTALLED=$(node -v)
   if [ "$NODE_VERSION_INSTALLED" != "$NODE_VERSION_REQUIRED" ]; then
@@ -52,7 +54,17 @@ fi
 if [ "$INSTALL_NODE" == "yes" ]; then
   # Install nvm (Node Version Manager)
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
-  source ~/.nvm/nvm.sh  # Load nvm into the shell session
+
+  # Add nvm to the shell startup file if not already added
+  if [ -z "$(grep 'source ~/.nvm/nvm.sh' ~/.bashrc)" ]; then
+    print_success "Adding nvm to bash startup file..."
+    echo 'export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"' >> ~/.bashrc
+    echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> ~/.bashrc
+    NVM_LOADED="yes"
+  fi
+
+  # Load nvm into the current shell session
+  source ~/.nvm/nvm.sh
   
   # Install the required Node.js version
   nvm install 20
@@ -63,6 +75,12 @@ if [ "$INSTALL_NODE" == "yes" ]; then
   fi
   print_success "Node.js $(node -v) and npm $(npm -v) installed successfully."
 fi
+
+# Load nvm in the shell that runs the script
+if [ "$NVM_LOADED" == "yes" ]; then
+  print_success "NVM loaded. Restart your shell or run 'source ~/.bashrc' to activate it."
+fi
+
 
 # Step 2: Install node_modules inside 'social-network' folder
 if [ -d "social-network/frontend" ]; then

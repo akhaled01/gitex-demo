@@ -3,7 +3,7 @@ FROM ubuntu:latest
 
 # Install necessary packages
 RUN apt-get update && \
-    apt-get install -y git curl gnome-terminal
+    apt-get install -y git curl gnome-terminal vim
 
 # Set the working directory
 WORKDIR /root

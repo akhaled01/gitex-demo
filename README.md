@@ -135,8 +135,8 @@ The `dockerize.sh` script is used to create a Docker container with the necessar
 ./scripts/dockerize.sh <NEXT_PUBLIC_SUPABASE_URL> <SUPABASE_SERVICE_ROLE_KEY>
 ```
 
-- **REPO_URL**: The URL of the Git repository to clone (e.g., `https://github.com/akhaled01/gitex-demo.git`).
-- **KEY1** and **KEY2**: Additional keys or parameters required for setup.
+- **NEXT_PUBLIC_SUPABASE_URL**: The URL for your Supabase project.
+- **SUPABASE_SERVICE_ROLE_KEY**: The service role key for accessing Supabase.
 
 #### Example Command
 To dockerize the application, run:

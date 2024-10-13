@@ -142,7 +142,7 @@ The `dockerize.sh` script is used to create a Docker container with the necessar
 To dockerize the application, run:
 
 ```bash
-./scripts/dockerize.sh "https://github.com/akhaled01/gitex-demo.git" "your-key1" "your-key2"
+./scripts/dockerize.sh "https://your-supabase-url" "your-service-role-key"
 ```
 
 This script will:

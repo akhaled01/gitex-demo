@@ -28,9 +28,9 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # Step 1: Install required packages
-print_success "Installing g++, make, and libsdl2-dev..."
+print_success "Installing g++, make, curl, and libsdl2-dev..."
 apt-get update
-apt-get install -y g++ make libsdl2-dev
+apt-get install -y g++ make libsdl2-dev curl
 
 # Step 2: Install node.js and npm
 NODE_VERSION_REQUIRED="v20.18.0"
